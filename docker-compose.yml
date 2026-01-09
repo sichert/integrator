@@ -102,7 +102,7 @@ services:
     image: ${WM_IMAGE}
     pull_policy: always
     deploy:
-      replicas: 3
+      replicas: 1
       resources:
         limits:
           cpus: "1"
