@@ -1,0 +1,3 @@
+description: Used for quering the OpenProject for work packages
+value: 'http://web:8080/api/v3/work_packages'
+is_secret: false
