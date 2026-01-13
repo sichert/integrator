@@ -27,7 +27,7 @@ value:
       value:
         type: forloopflow
         modules:
-          - id: work_packages_url
+          - id: eaa
             value:
               type: rawscript
               content: '!inline inline_script_1.py'
@@ -37,16 +37,45 @@ value:
                   expr: flow_input.iter.value
               lock: '!inline inline_script_1.lock'
               language: python3
+          - id: dzy
+            value:
+              type: script
+              input_transforms:
+                project:
+                  type: javascript
+                  expr: results.eaa
+              is_trigger: false
+              path: u/admin/syncronize_projects
             continue_on_error: false
-          - id: c
+            retry:
+              constant:
+                attempts: 5
+                seconds: 5
+              exponential:
+                attempts: 0
+                multiplier: 1
+                random_factor: null
+                seconds: 0
+          - id: work_packages_url
             value:
               type: rawscript
               content: '!inline inline_script_2.py'
               input_transforms:
                 x:
                   type: javascript
-                  expr: results.work_packages_url
+                  expr: flow_input.iter.value
               lock: '!inline inline_script_2.lock'
+              language: python3
+            continue_on_error: false
+          - id: c
+            value:
+              type: rawscript
+              content: '!inline inline_script_3.py'
+              input_transforms:
+                x:
+                  type: javascript
+                  expr: results.work_packages_url
+              lock: '!inline inline_script_3.lock'
               language: python3
             continue_on_error: false
             retry:
@@ -62,17 +91,42 @@ value:
             value:
               type: forloopflow
               modules:
-                - id: time_entries_url
+                - id: dza
                   value:
                     type: rawscript
-                    content: '!inline inline_script_3.py'
+                    content: '!inline inline_script_4.py'
                     input_transforms:
+                      project_id:
+                        type: javascript
+                        expr: results.dzy
                       x:
                         type: javascript
                         expr: flow_input.iter.value
-                    lock: '!inline inline_script_3.lock'
+                    lock: '!inline inline_script_4.lock'
                     language: python3
                   continue_on_error: false
+                - id: dzz
+                  value:
+                    type: script
+                    input_transforms:
+                      project_id:
+                        type: javascript
+                        expr: results.dzy
+                      work_package:
+                        type: javascript
+                        expr: results.dza
+                    is_trigger: false
+                    path: u/admin/synchronize_work_packages
+                  continue_on_error: false
+                  retry:
+                    constant:
+                      attempts: 5
+                      seconds: 5
+                    exponential:
+                      attempts: 0
+                      multiplier: 1
+                      random_factor: null
+                      seconds: 0
               iterator:
                 type: javascript
                 expr: results.c
@@ -88,12 +142,12 @@ value:
     - id: dzx
       value:
         type: rawscript
-        content: '!inline inline_script_4.py'
+        content: '!inline inline_script_5.py'
         input_transforms:
           x:
             type: javascript
             expr: results.d
-        lock: '!inline inline_script_4.lock'
+        lock: '!inline inline_script_5.lock'
         language: python3
 schema:
   $schema: 'https://json-schema.org/draft/2020-12/schema'
