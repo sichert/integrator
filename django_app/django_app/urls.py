@@ -17,8 +17,18 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from rest_framework import routers
+
+from openproject_sync import views
+
+router = routers.DefaultRouter()
+router.register(r"projects", views.ProjectViewSet)
+router.register(r"work_packages", views.WorkPackageViewSet)
+router.register(r"time_entries", views.TimeEntryViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("", include(router.urls)),
+    path('api-auth/', include('rest_framework.urls'))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
