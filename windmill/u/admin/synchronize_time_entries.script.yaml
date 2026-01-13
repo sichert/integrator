@@ -1,0 +1,14 @@
+summary: ''
+description: ''
+lock: '!inline u/admin/synchronize_time_entries.script.lock'
+kind: script
+schema:
+  $schema: 'https://json-schema.org/draft/2020-12/schema'
+  type: object
+  properties:
+    time_entry:
+      type: object
+      description: ''
+      default: {}
+      properties: {}
+  required: ["time_entry"]

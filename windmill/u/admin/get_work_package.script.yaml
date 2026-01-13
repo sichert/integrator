@@ -1,0 +1,14 @@
+summary: ''
+description: ''
+lock: '!inline u/admin/get_work_package.script.lock'
+kind: script
+schema:
+  $schema: 'https://json-schema.org/draft/2020-12/schema'
+  type: object
+  properties:
+    work_package_id:
+      type: integer
+      description: ''
+      default: null
+  required:
+    - work_package_id

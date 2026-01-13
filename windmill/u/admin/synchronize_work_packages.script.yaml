@@ -1,0 +1,14 @@
+summary: ''
+description: ''
+lock: '!inline u/admin/synchronize_work_packages.script.lock'
+kind: script
+schema:
+  $schema: 'https://json-schema.org/draft/2020-12/schema'
+  type: object
+  properties:
+    work_package:
+      type: object
+      description: ''
+      default: {}
+      properties: {}
+  required: ["work_package"]
