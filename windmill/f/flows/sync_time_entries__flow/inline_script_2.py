@@ -24,4 +24,4 @@ def main(x: str):
             "Authorization": f"Basic {authorization_hash}"
         },
     )
-    return r.json().get("_embedded", {}).get("entity", {})
+    return r.json()
