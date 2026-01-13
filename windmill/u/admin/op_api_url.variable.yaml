@@ -1,3 +1,3 @@
-description: ''
+description: 'Base URL of the OpenProject API'
 value: 'http://web:8080/'
 is_secret: false
