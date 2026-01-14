@@ -14,7 +14,7 @@ class WorkPackage(TypedDict):
     attributes which are essential for tracking and managing work progress.
     """
     openproject_id: int
-    project_id: int
+    project: int
     subject: str
     createdAt: datetime
     updatedAt: datetime
@@ -57,7 +57,7 @@ def main(x: dict, project_id: int):
     """
     return WorkPackage(
         openproject_id=x["id"],
-        project_id=project_id,
+        project=project_id,
         subject=x["subject"],
         createdAt=x.get("createdAt", ""),
         updatedAt=x.get("updatedAt",""),
