@@ -237,14 +237,6 @@ services:
       - seeder
     ports:
       - 8081:8080
-    labels:
-      - autoheal=true
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://web:8081${OPENPROJECT_RAILS__RELATIVE__URL__ROOT:-}/health_checks/default"]
-      interval: 10s
-      timeout: 3s
-      retries: 3
-      start_period: 30s
     networks:
       - backend
 
