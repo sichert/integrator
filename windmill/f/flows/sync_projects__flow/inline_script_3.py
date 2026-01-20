@@ -4,6 +4,5 @@
 def main(x: object):
     result = []
     for i in x:
-        for j in i:
-            result.append(j)
+        result.append(i)
     return result

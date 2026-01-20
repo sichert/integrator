@@ -1,0 +1,91 @@
+summary: >-
+  Synchronize the projects between the Openproject and the example Django
+  project
+description: >-
+  This is a windmill flow this is being used for synchronize the work packages
+  between the Openproject and the example Django project
+value:
+  modules:
+    - id: openproject_projects_list
+      value:
+        type: rawscript
+        content: '!inline inline_script_0.py'
+        input_transforms: {}
+        lock: '!inline inline_script_0.lock'
+        language: python3
+      continue_on_error: false
+      retry:
+        constant:
+          attempts: 10
+          seconds: 5
+        exponential:
+          attempts: 0
+          multiplier: 1
+          random_factor: null
+          seconds: 0
+    - id: d
+      value:
+        type: forloopflow
+        modules:
+          - id: eaa
+            value:
+              type: rawscript
+              content: '!inline inline_script_1.py'
+              input_transforms:
+                x:
+                  type: javascript
+                  expr: flow_input.iter.value
+              lock: '!inline inline_script_1.lock'
+              language: python3
+          - id: dzy
+            value:
+              type: script
+              input_transforms:
+                project:
+                  type: javascript
+                  expr: results.eaa
+              is_trigger: false
+              path: u/admin/syncronize_projects
+            continue_on_error: false
+            retry:
+              constant:
+                attempts: 5
+                seconds: 5
+              exponential:
+                attempts: 0
+                multiplier: 1
+                random_factor: null
+                seconds: 0
+          - id: work_packages_url
+            value:
+              type: rawscript
+              content: '!inline inline_script_2.py'
+              input_transforms:
+                x:
+                  type: javascript
+                  expr: flow_input.iter.value
+              lock: '!inline inline_script_2.lock'
+              language: python3
+            continue_on_error: false
+        iterator:
+          type: javascript
+          expr: results.openproject_projects_list
+        parallel: false
+        skip_failures: true
+        squash: false
+    - id: dzx
+      value:
+        type: rawscript
+        content: '!inline inline_script_3.py'
+        input_transforms:
+          x:
+            type: javascript
+            expr: results.d
+        lock: '!inline inline_script_3.lock'
+        language: python3
+schema:
+  $schema: 'https://json-schema.org/draft/2020-12/schema'
+  type: object
+  order: []
+  properties: {}
+  required: []
