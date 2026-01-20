@@ -34,5 +34,4 @@ def main(work_package: object):
         )
     else:
         result = requests.post(work_packages_url, json=work_package, headers=headers)
-
     return result.json().get("id")
