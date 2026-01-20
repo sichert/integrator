@@ -1,42 +1,34 @@
-from typing import TypedDict
+import wmill
+import requests
 
 
-class Project(TypedDict):
+def main(x: str):
     """
-    Represents a structured format for storing project information.
+    Fetches a list of elements from a remote API endpoint.
 
-    This class defines a TypedDict that holds information about a project, such as
-    its identifier, name, status, and other attributes. It is used for type checking
-    and ensuring consistency when handling project data.
-    """
-    openproject_id: int
-    identifier: str
-    name: str
-    active: bool
-    public: bool
-    description: str
+    This function retrieves data from a specified API URL using a GET
+    request. It requires an API endpoint addition to the base URL and
+    uses predefined authorization and API URL variables to authenticate
+    and construct the request. The response is parsed to extract and
+    return the list of elements.
 
-
-def main(x: dict):
-    """
-    Converts a dictionary input into a Project instance by mapping specific keys
-    and providing default values for missing optional fields.
-
-    Args:
-        x (dict): A dictionary containing key-value pairs for the creation of
-            a Project instance. Required keys include 'openproject_id',
-            'identifier', and 'name'. Optional keys include 'active', 'public',
-            and 'description' with a nested 'raw' key.
+    Parameters:
+    x: str
+        A string representing the endpoint addition to the base
+        API URL.
 
     Returns:
-        Project: A new instance of the Project class initialized with values
-            extracted from the input dictionary.
+    list
+        A list of elements extracted from the "_embedded" property
+        of the JSON response. Returns an empty list if the property
+        or elements do not exist.
     """
-    return Project(
-        openproject_id=x["id"],
-        identifier=x["identifier"],
-        name=x["name"],
-        active=x.get("active", True),
-        public=x.get("public", True),
-        description=x.get("description", {"raw": ""}).get("raw",""),
+    authorization_hash = wmill.get_variable("u/admin/op_authorization_hash")
+    op_api_url = wmill.get_variable("u/admin/op_api_url")
+    r = requests.get(
+        f"{op_api_url}{x[1]}",
+        headers={
+            "Authorization": f"Basic {authorization_hash}"
+        },
     )
+    return r.json().get("_embedded", {"elements": []}).get("elements", [])
