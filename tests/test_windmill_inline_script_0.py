@@ -12,8 +12,22 @@ class TestMainFunction(unittest.TestCase):
     @patch('windmill.f.flows.sync_work_packages__flow.inline_script_0.requests.get')
     def test_returns_empty_list_on_empty_response(self, mock_get, mock_get_variable):
         """
-        Test that the main function returns an empty list
-        if the API response does not contain any project elements.
+        Tests the behavior of main function when API response is empty.
+
+        This test case ensures that when the external API returns an empty response,
+        the main function correctly processes the data and returns an empty list.
+        It uses mocking to simulate external dependencies and their behavior.
+
+        Arguments:
+            self: Refers to the instance of the test class.
+
+        Attributes:
+            mock_get: Mock of the `requests.get` function to simulate API calls.
+            mock_get_variable: Mock of the `get_variable` function to provide
+                predetermined variable values.
+
+        Raises:
+            AssertionError: If the returned result is not an empty list.
         """
         mock_get_variable.side_effect = lambda key: "mock_value"
         mock_response = MagicMock()
