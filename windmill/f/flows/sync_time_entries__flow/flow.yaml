@@ -6,11 +6,6 @@ description: >-
   between the Openproject and the example Django project
 value:
   modules:
-    - id: eac
-      value:
-        type: flow
-        input_transforms: {}
-        path: f/flows/sync_work_packages
     - id: openproject_time_entries_list
       value:
         type: rawscript
@@ -109,6 +104,10 @@ value:
             value:
               type: script
               input_transforms:
+                action:
+                  type: static
+                existing_time_entries:
+                  type: static
                 time_entry:
                   type: javascript
                   expr: results.dzy
