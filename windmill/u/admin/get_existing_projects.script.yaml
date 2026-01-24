@@ -1,0 +1,9 @@
+summary: Get the list of the existing projects in the Django app
+description: ''
+lock: '!inline u/admin/get_existing_projects.script.lock'
+kind: script
+schema:
+  $schema: 'https://json-schema.org/draft/2020-12/schema'
+  type: object
+  properties: {}
+  required: []

@@ -6,6 +6,12 @@ description: >-
   between the Openproject and the example Django project
 value:
   modules:
+    - id: existing_working_packages
+      value:
+        type: script
+        input_transforms: {}
+        is_trigger: false
+        path: u/admin/get_existing_work_packages
     - id: openproject_projects_list
       value:
         type: flow
@@ -67,6 +73,12 @@ value:
                   value:
                     type: script
                     input_transforms:
+                      action:
+                        type: static
+                        value: ''
+                      existing_work_packages:
+                        type: javascript
+                        expr: results.existing_working_packages
                       work_package:
                         type: javascript
                         expr: results.dza
@@ -85,7 +97,7 @@ value:
               iterator:
                 type: javascript
                 expr: results.c
-              parallel: true
+              parallel: false
               skip_failures: true
               squash: false
         iterator:

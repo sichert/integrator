@@ -1,14 +1,14 @@
-summary: Get the work package by ID from the Django app
+summary: Get the project by ID from the Django app
 description: ''
-lock: '!inline u/admin/get_work_package.script.lock'
+lock: '!inline u/admin/get_project.script.lock'
 kind: script
 schema:
   $schema: 'https://json-schema.org/draft/2020-12/schema'
   type: object
   properties:
-    work_package_id:
+    project_id:
       type: integer
       description: ''
       default: null
   required:
-    - work_package_id
+    - project_id

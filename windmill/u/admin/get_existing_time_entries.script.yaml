@@ -1,0 +1,9 @@
+summary: Get the list of the existing time entries in the Django app
+description: ''
+lock: '!inline u/admin/get_existing_time_entries.script.lock'
+kind: script
+schema:
+  $schema: 'https://json-schema.org/draft/2020-12/schema'
+  type: object
+  properties: {}
+  required: []

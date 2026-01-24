@@ -1,4 +1,4 @@
-summary: ''
+summary: Synchronize the work packages with the Django app
 description: ''
 lock: '!inline u/admin/synchronize_work_packages.script.lock'
 kind: script
@@ -6,9 +6,23 @@ schema:
   $schema: 'https://json-schema.org/draft/2020-12/schema'
   type: object
   properties:
+    action:
+      type: string
+      description: ''
+      default: ''
+      originalType: string
+    existing_work_packages:
+      type: array
+      description: List of existing work packages in the Django app.
+      default: []
+      items:
+        type: string
+      order: []
+      originalType: 'string[]'
+      properties: {}
     work_package:
       type: object
       description: ''
       default: {}
       properties: {}
-  required: ["work_package"]
+  required: []

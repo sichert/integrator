@@ -23,6 +23,12 @@ value:
           multiplier: 1
           random_factor: null
           seconds: 0
+    - id: existing_projects
+      value:
+        type: script
+        input_transforms: {}
+        is_trigger: false
+        path: u/admin/get_existing_projects
     - id: d
       value:
         type: forloopflow
@@ -41,6 +47,12 @@ value:
             value:
               type: script
               input_transforms:
+                action:
+                  type: static
+                  value: ''
+                existing_projects:
+                  type: javascript
+                  expr: results.existing_projects
                 project:
                   type: javascript
                   expr: results.eaa

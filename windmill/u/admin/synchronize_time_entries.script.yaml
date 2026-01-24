@@ -1,4 +1,4 @@
-summary: ''
+summary: Synchronize the time entries with the Django app
 description: ''
 lock: '!inline u/admin/synchronize_time_entries.script.lock'
 kind: script
@@ -6,9 +6,23 @@ schema:
   $schema: 'https://json-schema.org/draft/2020-12/schema'
   type: object
   properties:
+    action:
+      type: string
+      description: ''
+      default: ''
+      originalType: string
+    existing_time_entries:
+      type: array
+      description: List of existing time entries in the Django app.
+      default: []
+      items:
+        type: string
+      order: []
+      originalType: 'string[]'
+      properties: {}
     time_entry:
       type: object
       description: ''
       default: {}
       properties: {}
-  required: ["time_entry"]
+  required: []

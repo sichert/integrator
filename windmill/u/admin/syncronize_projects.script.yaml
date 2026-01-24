@@ -1,14 +1,30 @@
-summary: ''
+summary: Synchronize the projects with the Django app
 description: ''
 lock: '!inline u/admin/syncronize_projects.script.lock'
 kind: script
 schema:
   $schema: 'https://json-schema.org/draft/2020-12/schema'
   type: object
+  order:
+    - project
   properties:
+    action:
+      type: string
+      description: ''
+      default: null
+      originalType: string
+    existing_projects:
+      type: array
+      description: List of existing projects in the Django app.
+      default: []
+      items:
+        type: string
+      order: []
+      originalType: 'string[]'
+      properties: {}
     project:
       type: object
       description: ''
       default: {}
       properties: {}
-  required: ["project"]
+  required: []
