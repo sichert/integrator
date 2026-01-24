@@ -2,6 +2,17 @@ from django.contrib import admin
 from openproject_sync.models import WorkPackage, TimeEntry, Project
 
 
-admin.site.register(Project)
-admin.site.register(WorkPackage)
-admin.site.register(TimeEntry)
+class ProjectAdmin(admin.ModelAdmin):
+    pass
+
+class WorkPackageAdmin(admin.ModelAdmin):
+    list_display = ('subject', 'project')
+    list_filter = ('project', )
+
+class TimeEntryAdmin(admin.ModelAdmin):
+    list_display = ('work_package', 'comment', 'spentOn', 'hours')
+    list_filter = ('work_package', )
+
+admin.site.register(Project, ProjectAdmin)
+admin.site.register(WorkPackage, WorkPackageAdmin)
+admin.site.register(TimeEntry, TimeEntryAdmin)
