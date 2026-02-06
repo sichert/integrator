@@ -47,11 +47,31 @@ class Project(OpenProjectModelMixin, models.Model):
     description = models.TextField(blank=True, null=True)
 
     class Meta:
-        ordering = ('name',)
-        verbose_name_plural = 'Projects'
+        ordering = ("name",)
+        verbose_name_plural = "Projects"
 
     def __str__(self):
-        return f'{self.identifier} - {self.name}'
+        return f"{self.identifier} - {self.name}"
+
+    def to_openproject(self):
+        """
+        Converts the instance attributes into a dictionary format compatible with OpenProject.
+
+        Returns
+        -------
+        dict
+            A dictionary containing the mapped attributes: `identifier`, `name`, `active`,
+            `public`, and `description` (formatted as a nested dictionary with a key `raw`).
+        """
+        return {
+            "_type": "Project",
+            "id": self.openproject_id,
+            "identifier": self.identifier,
+            "name": self.name,
+            "active": str(self.active),
+            "public": str(self.public),
+            "description": {"raw": self.description},
+        }
 
 
 class WorkPackage(OpenProjectModelMixin, models.Model):
