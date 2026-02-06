@@ -16,10 +16,60 @@ class ProjectSerializer(serializers.ModelSerializer):
         model (type): Specifies the model to be serialized.
         fields (list): Defines the fields included in the serialized output.
     """
+
+    def create(self, validated_data):
+        """
+        Creates and saves a new Project instance.
+
+        This method is used to create a new instance of the Project model using
+        the provided validated data. It ensures that the "skip_signal" attribute
+        is set to True prior to saving the object. The saved Project instance
+        is then returned.
+
+        Args:
+            validated_data (dict): A dictionary containing validated data needed
+            to create the Project instance.
+
+        Returns:
+            Project: The newly created and saved Project instance.
+        """
+        project = Project(
+            **validated_data,
+        )
+        project.skip_signal = True
+        project.save()
+        return project
+
+    def update(self, instance, validated_data):
+        """
+        Updates an existing instance with the provided validated data.
+
+        This method overrides the default update behavior to set a flag
+        on the instance, which can be used to skip specific signals or
+        perform conditional logic during the update process. After setting
+        the flag, the method delegates the update to the parent implementation.
+
+        Args:
+            instance: The instance to be updated.
+            validated_data: The validated data used to update the instance.
+
+        Returns:
+            The updated instance.
+        """
+        instance.skip_signal = True
+        super().update(instance, validated_data)
+        return instance
+
     class Meta:
         model = Project
         fields = [
-            "id", "openproject_id", "identifier", "name", "active", "public", "description"
+            "id",
+            "openproject_id",
+            "identifier",
+            "name",
+            "active",
+            "public",
+            "description",
         ]
 
 
