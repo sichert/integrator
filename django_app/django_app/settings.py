@@ -144,3 +144,6 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.JSONParser',
     )
 }
+
+OPENPROJECT_API_URL = os.environ.get("OPENPROJECT_API_URL", "http://web:8080/")
+OPENPROJECT_AUTHORIZATION_HASH = os.environ.get("OPENPROJECT_AUTHORIZATION_HASH", "")
