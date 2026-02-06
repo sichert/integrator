@@ -1,7 +1,11 @@
 from rest_framework import permissions, viewsets
 
 from openproject_sync.models import Project, WorkPackage, TimeEntry
-from openproject_sync.serializers import ProjectSerializer, TimeEntrySerializer, WorkPackageSerializer
+from openproject_sync.serializers import (
+    ProjectSerializer,
+    TimeEntrySerializer,
+    WorkPackageSerializer,
+)
 
 
 class ProjectViewSet(viewsets.ModelViewSet):
@@ -18,9 +22,10 @@ class ProjectViewSet(viewsets.ModelViewSet):
         permission_classes: A list of permission classes applied to all the
             view set actions.
     """
+
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
-    lookup_field = 'openproject_id'
+    lookup_field = "openproject_id"
     permission_classes = [permissions.IsAuthenticated]
 
 
@@ -42,10 +47,11 @@ class WorkPackageViewSet(viewsets.ModelViewSet):
         permission_classes (list): The list of permission classes applied to
             the viewset to enforce access control.
     """
+
     queryset = WorkPackage.objects.all()
     serializer_class = WorkPackageSerializer
     permission_classes = [permissions.IsAuthenticated]
-    lookup_field = 'openproject_id'
+    lookup_field = "openproject_id"
 
 
 class TimeEntryViewSet(viewsets.ModelViewSet):
@@ -62,7 +68,8 @@ class TimeEntryViewSet(viewsets.ModelViewSet):
         serializer_class: The serializer class used for TimeEntry objects.
         permission_classes: A list of permission classes applied to this viewset.
     """
+
     queryset = TimeEntry.objects.all()
     serializer_class = TimeEntrySerializer
     permission_classes = [permissions.IsAuthenticated]
-    lookup_field = 'openproject_id'
+    lookup_field = "openproject_id"

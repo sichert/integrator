@@ -1,4 +1,3 @@
-
 x-logging: &default-logging
   driver: "json-file"
   options:
@@ -11,7 +10,7 @@ x-op-restart-policy: &restart_policy
 x-op-image: &image
   image: openproject/openproject:${TAG:-16-slim}
 x-op-app: &app
-  <<: [*image, *restart_policy]
+  <<: [ *image, *restart_policy ]
   environment:
     OPENPROJECT_HTTPS: "${OPENPROJECT_HTTPS:-true}"
     # OPENPROJECT_HOST__NAME: "${OPENPROJECT_HOST__NAME:-localhost:8081}"

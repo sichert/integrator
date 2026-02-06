@@ -70,5 +70,5 @@ def main(
 
     if openproject_id and openproject_id in existing_projects:
         action = "project:updated"
-    
+
     return process_hook(action, project, projects_url, headers)

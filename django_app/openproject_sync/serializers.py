@@ -1,5 +1,6 @@
-from openproject_sync.models import TimeEntry, WorkPackage, Project
 from rest_framework import serializers
+
+from openproject_sync.models import TimeEntry, WorkPackage, Project
 
 
 class ProjectSerializer(serializers.ModelSerializer):
@@ -35,14 +36,34 @@ class WorkPackageSerializer(serializers.ModelSerializer):
         model (type): Specifies the model to be serialized.
         fields (list): Defines the fields included in the serialized output.
     """
+
     class Meta:
         model = WorkPackage
         fields = [
-            "id", "openproject_id", "subject", "project", "subject", "createdAt", "updatedAt",
-            "derivedStartDate", "derivedDueDate", "startDate", "dueDate", "spentTime",
-            "estimatedTime", "derivedEstimatedTime", "derivedRemainingTime", "duration",
-            "laborCosts", "materialCosts", "overallCosts", "description", "scheduleManually",
-            "ignoreNonWorkingDays", "percentageDone", "derivedPercentageDone"
+            "id",
+            "openproject_id",
+            "subject",
+            "project",
+            "subject",
+            "createdAt",
+            "updatedAt",
+            "derivedStartDate",
+            "derivedDueDate",
+            "startDate",
+            "dueDate",
+            "spentTime",
+            "estimatedTime",
+            "derivedEstimatedTime",
+            "derivedRemainingTime",
+            "duration",
+            "laborCosts",
+            "materialCosts",
+            "overallCosts",
+            "description",
+            "scheduleManually",
+            "ignoreNonWorkingDays",
+            "percentageDone",
+            "derivedPercentageDone",
         ]
 
 
@@ -59,9 +80,17 @@ class TimeEntrySerializer(serializers.ModelSerializer):
         model (type): Specifies the model to be serialized.
         fields (list): Defines the fields included in the serialized output.
     """
+
     class Meta:
         model = TimeEntry
         fields = [
-            "id", "openproject_id", "work_package",
-            "ongoing", "comment", "spentOn", "hours", "createdAt", "updatedAt"
+            "id",
+            "openproject_id",
+            "work_package",
+            "ongoing",
+            "comment",
+            "spentOn",
+            "hours",
+            "createdAt",
+            "updatedAt",
         ]

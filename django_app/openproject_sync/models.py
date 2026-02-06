@@ -10,7 +10,9 @@ class OpenProjectModelMixin(models.Model):
     allowing other models to inherit from it and include the `openproject_id`
     field for managing integration with the OpenProject platform.
     """
+
     openproject_id = models.IntegerField()
+
     class Meta:
         abstract = True
 
@@ -37,6 +39,7 @@ class Project(OpenProjectModelMixin, models.Model):
     Returns:
         str: A string representation of the project, consisting of its identifier and name.
     """
+
     identifier = models.CharField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
     active = models.BooleanField(default=True)
@@ -75,11 +78,11 @@ class WorkPackage(OpenProjectModelMixin, models.Model):
     derivedPercentageDone = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        ordering = ('subject',)
-        verbose_name_plural = 'Work Packages'
+        ordering = ("subject",)
+        verbose_name_plural = "Work Packages"
 
     def __str__(self):
-        return f'{self.project} - {self.subject}'
+        return f"{self.project} - {self.subject}"
 
 
 class TimeEntry(OpenProjectModelMixin, models.Model):
@@ -92,8 +95,8 @@ class TimeEntry(OpenProjectModelMixin, models.Model):
     updatedAt = models.DateTimeField(blank=True, null=True)
 
     class Meta:
-        ordering = ('work_package', 'spentOn')
-        verbose_name_plural = 'Time Entries'
+        ordering = ("work_package", "spentOn")
+        verbose_name_plural = "Time Entries"
 
     def __str__(self):
-        return f'{self.work_package} - {self.spentOn} - {self.hours}'
+        return f"{self.work_package} - {self.spentOn} - {self.hours}"
