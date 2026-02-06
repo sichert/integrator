@@ -37,9 +37,7 @@ def process_hook(action: str, project: dict, projects_url: str, headers: dict) -
     return result.json()["id"]
 
 
-def main(
-    action: str = "", project: dict = {}, existing_projects: list = []
-):
+def main(action: str = "", project: dict = {}, existing_projects: list = []):
     """
     Processes project actions with webhook payload and determines whether to create or update a project
     based on the provided parameters and existing project criteria.

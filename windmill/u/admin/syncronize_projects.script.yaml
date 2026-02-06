@@ -11,7 +11,7 @@ schema:
     action:
       type: string
       description: ''
-      default: null
+      default: ''
       originalType: string
     existing_projects:
       type: array

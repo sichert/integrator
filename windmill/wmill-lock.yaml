@@ -35,4 +35,4 @@ locks:
   u/admin/sync_projects__flow+inline_script_3.py: bc7ef2f4edea4000c5660c94a4659acf2401ff52c26a7156d4996fee17e5d0dc
   u/admin/synchronize_time_entries: a2542fbff9751128b627df8d2896812265695114d7103d2cbe2a62787e8aacfd
   u/admin/synchronize_work_packages: 90b0f901ad52ca5b2c8981cd266bb5e9aa311ba3f48383c6790cb9cddf49f6a1
-  u/admin/syncronize_projects: 51ebe5137c98b80c2248ef604f992c0a6752eabed88c5925331efe5878c684eb
+  u/admin/syncronize_projects: 61e5f06fb5ffe63514dce9e2c3cfd401bbfee23b7fa11bebe5486375a3421b98
