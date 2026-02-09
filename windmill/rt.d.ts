@@ -696,6 +696,12 @@ declare namespace RT {
     baseUrl: string
   }
 
+  type Matteroom = {
+    base_url: string,
+    password: string,
+    username: string
+  }
+
   type Mcp = {
     url: string,
     name: string,
@@ -806,6 +812,8 @@ declare namespace RT {
   }
 
   type Nextcloud = {
+    token: string,
+    userId: string,
     baseUrl: string,
     password: string,
     username: string
