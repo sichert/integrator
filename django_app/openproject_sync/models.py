@@ -77,6 +77,7 @@ class Project(OpenProjectModelMixin, models.Model):
 class WorkPackage(OpenProjectModelMixin, models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     subject = models.CharField(max_length=255)
+    lockVersion = models.IntegerField(default=0)
     createdAt = models.DateTimeField(blank=True, null=True)
     updatedAt = models.DateTimeField(blank=True, null=True)
     derivedStartDate = models.DateTimeField(blank=True, null=True)

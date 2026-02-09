@@ -92,6 +92,7 @@ class WorkPackageSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "openproject_id",
+            "lockVersion",
             "subject",
             "project",
             "subject",

@@ -13,8 +13,10 @@ class WorkPackage(TypedDict):
     details such as identifiers, timestamps, scheduling information, and cost-related
     attributes which are essential for tracking and managing work progress.
     """
+
     openproject_id: int
     project: int
+    lockVersion: int
     subject: str
     createdAt: datetime
     updatedAt: datetime
@@ -58,22 +60,23 @@ def main(x: dict, project_id: int):
     return WorkPackage(
         openproject_id=x["id"],
         project=project_id,
+        lockVersion=x.get("lockVersion", 0),
         subject=x["subject"],
         createdAt=x.get("createdAt", ""),
-        updatedAt=x.get("updatedAt",""),
+        updatedAt=x.get("updatedAt", ""),
         derivedStartDate=x.get("derivedStartDate", ""),
         derivedDueDate=x.get("derivedDueDate", ""),
-        startDate=x.get("startDate",""),
-        dueDate=x.get("dueDate",""),
-        spentTime=x.get("spentTime",""),
-        estimatedTime=x.get("estimatedTime",""),
-        derivedEstimatedTime=x.get("derivedEstimatedTime",""),
-        derivedRemainingTime=x.get("derivedRemainingTime",""),
+        startDate=x.get("startDate", ""),
+        dueDate=x.get("dueDate", ""),
+        spentTime=x.get("spentTime", ""),
+        estimatedTime=x.get("estimatedTime", ""),
+        derivedEstimatedTime=x.get("derivedEstimatedTime", ""),
+        derivedRemainingTime=x.get("derivedRemainingTime", ""),
         duration=x.get("duration", ""),
-        laborCosts=x.get("laborCosts",""),
-        materialCosts=x.get("materialCosts",""),
-        overallCosts=x.get("overallCosts",""),
-        description=x.get("description", {"raw": ""}).get("raw",""),
+        laborCosts=x.get("laborCosts", ""),
+        materialCosts=x.get("materialCosts", ""),
+        overallCosts=x.get("overallCosts", ""),
+        description=x.get("description", {"raw": ""}).get("raw", ""),
         scheduleManually=x.get("scheduleManually", False),
         ignoreNonWorkingDays=x.get("ignoreNonWorkingDays", False),
         percentageDone=x.get("percentageDone", 0),
