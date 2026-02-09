@@ -1,17 +1,29 @@
 from django.contrib import admin
+
 from openproject_sync.models import WorkPackage, TimeEntry, Project
 
 
 class ProjectAdmin(admin.ModelAdmin):
-    pass
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
 
 class WorkPackageAdmin(admin.ModelAdmin):
-    list_display = ('subject', 'project')
-    list_filter = ('project', )
+    list_display = ("subject", "project")
+    list_filter = ("project",)
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
 
 class TimeEntryAdmin(admin.ModelAdmin):
-    list_display = ('work_package', 'comment', 'spentOn', 'hours')
-    list_filter = ('work_package', )
+    list_display = ("work_package", "comment", "spentOn", "hours")
+    list_filter = ("work_package",)
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
 
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(WorkPackage, WorkPackageAdmin)
