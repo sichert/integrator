@@ -3,7 +3,70 @@ from rest_framework import serializers
 from openproject_sync.models import TimeEntry, WorkPackage, Project
 
 
-class ProjectSerializer(serializers.ModelSerializer):
+class SerializerWithSkipSignal(serializers.ModelSerializer):
+    """
+    Handles serialization tasks with a built-in mechanism to bypass specific model signals.
+
+    This serializer extension ensures that specific signals related to
+    the associated model are skipped during the creation and update
+    operations. Primarily used for cases where signals need to be disabled
+    for programmatic or performance reasons. Designed to work with Django
+    Rest Framework serializers.
+
+    Attributes:
+        Meta.model: Specifies the model class associated with the
+            serializer.
+    """
+
+    def create(self, validated_data):
+        """
+        Creates and saves a new instance of the model using the provided validated data.
+
+        This method initializes a new instance of the model specified in the 'Meta.model'
+        attribute using the validated data. The 'skip_signal' attribute is explicitly set
+        to True to bypass specific signals during the save operation. After setting this
+        property, the new model instance is saved to the database and returned.
+
+        Parameters:
+        validated_data (dict): A dictionary containing the validated data to initialize
+                               the model instance.
+
+        Returns:
+        Model instance: The newly created model instance after saving it to the database.
+        """
+        ModelClass = self.Meta.model
+        instance = ModelClass(
+            **validated_data,
+        )
+        instance.skip_signal = True
+        instance.save()
+        return instance
+
+    def update(self, instance, validated_data):
+        """
+        Updates an existing instance with the given validated data and sets a flag to skip signal processing.
+
+        This method overrides the parent class's update method. Before updating the instance, it marks
+        a specific flag to bypass any signal processing associated with the instance. The overridden
+        method from the superclass is then called to perform the actual update operation.
+
+        Parameters:
+            instance: The object instance to be updated.
+            validated_data: dict
+                The validated data to update the instance with.
+
+        Returns:
+            The updated instance.
+        """
+        instance.skip_signal = True
+        super().update(instance, validated_data)
+        return instance
+
+    class Meta:
+        abstract = True
+
+
+class ProjectSerializer(SerializerWithSkipSignal):
     """
     Serializer class for the Project model.
 
@@ -16,49 +79,6 @@ class ProjectSerializer(serializers.ModelSerializer):
         model (type): Specifies the model to be serialized.
         fields (list): Defines the fields included in the serialized output.
     """
-
-    def create(self, validated_data):
-        """
-        Creates and saves a new Project instance.
-
-        This method is used to create a new instance of the Project model using
-        the provided validated data. It ensures that the "skip_signal" attribute
-        is set to True prior to saving the object. The saved Project instance
-        is then returned.
-
-        Args:
-            validated_data (dict): A dictionary containing validated data needed
-            to create the Project instance.
-
-        Returns:
-            Project: The newly created and saved Project instance.
-        """
-        project = Project(
-            **validated_data,
-        )
-        project.skip_signal = True
-        project.save()
-        return project
-
-    def update(self, instance, validated_data):
-        """
-        Updates an existing instance with the provided validated data.
-
-        This method overrides the default update behavior to set a flag
-        on the instance, which can be used to skip specific signals or
-        perform conditional logic during the update process. After setting
-        the flag, the method delegates the update to the parent implementation.
-
-        Args:
-            instance: The instance to be updated.
-            validated_data: The validated data used to update the instance.
-
-        Returns:
-            The updated instance.
-        """
-        instance.skip_signal = True
-        super().update(instance, validated_data)
-        return instance
 
     class Meta:
         model = Project
@@ -73,7 +93,7 @@ class ProjectSerializer(serializers.ModelSerializer):
         ]
 
 
-class WorkPackageSerializer(serializers.ModelSerializer):
+class WorkPackageSerializer(SerializerWithSkipSignal):
     """
     Serializer class for the WorkPackage model.
 
@@ -118,7 +138,7 @@ class WorkPackageSerializer(serializers.ModelSerializer):
         ]
 
 
-class TimeEntrySerializer(serializers.ModelSerializer):
+class TimeEntrySerializer(SerializerWithSkipSignal):
     """
     Serializer class for TimeEntry model.
 

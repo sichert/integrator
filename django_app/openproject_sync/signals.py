@@ -5,7 +5,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 from django_app import settings
-from .models import Project
+from .models import Project, WorkPackage, TimeEntry
 
 
 def skip_signal():
