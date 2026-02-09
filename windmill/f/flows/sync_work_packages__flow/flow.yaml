@@ -21,7 +21,7 @@ value:
       value:
         type: forloopflow
         modules:
-          - id: project_id
+          - id: openproject_project_id
             value:
               type: rawscript
               content: '!inline inline_script_0.py'
@@ -31,6 +31,16 @@ value:
                   expr: flow_input.iter.value
               lock: '!inline inline_script_0.lock'
               language: python3
+            continue_on_error: false
+          - id: project_id
+            value:
+              type: script
+              input_transforms:
+                project_id:
+                  type: javascript
+                  expr: results.openproject_project_id
+              is_trigger: false
+              path: u/admin/get_project
           - id: c
             value:
               type: rawscript
