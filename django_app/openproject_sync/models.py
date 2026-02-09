@@ -105,6 +105,25 @@ class WorkPackage(OpenProjectModelMixin, models.Model):
     def __str__(self):
         return f"{self.project} - {self.subject}"
 
+    def to_openproject(self):
+        return {
+            "id": self.openproject_id,
+            "lockVersion": self.lockVersion,
+            "subject": self.subject,
+            "startDate": (
+                self.startDate.strftime("%Y-%m-%d") if self.startDate else None
+            ),
+            "dueDate": self.dueDate.strftime("%Y-%m-%d") if self.dueDate else None,
+            "estimatedTime": self.estimatedTime,
+            "duration": self.duration,
+            "laborCosts": self.laborCosts,
+            "materialCosts": self.materialCosts,
+            "overallCosts": self.overallCosts,
+            "scheduleManually": str(self.scheduleManually),
+            "description": {"raw": self.description},
+            "_embedded": {"project": {"id": self.project.openproject_id}},
+        }
+
 
 class TimeEntry(OpenProjectModelMixin, models.Model):
     work_package = models.ForeignKey(WorkPackage, on_delete=models.CASCADE)
@@ -121,3 +140,20 @@ class TimeEntry(OpenProjectModelMixin, models.Model):
 
     def __str__(self):
         return f"{self.work_package} - {self.spentOn} - {self.hours}"
+
+    def to_openproject(self):
+        return {
+            "_type": "TimeEntry",
+            "id": self.openproject_id,
+            "ongoing": str(self.ongoing),
+            "spentOn": str(self.spentOn),
+            "hours": self.hours,
+            "createdAt": (
+                self.createdAt.strftime("%Y-%m-%d %H:%M:%S") if self.createdAt else None
+            ),
+            "updatedAt": (
+                self.updatedAt.strftime("%Y-%m-%d %H:%M:%S") if self.updatedAt else None
+            ),
+            "comment": {"raw": self.description},
+            "_embedded": {"workPackage": {"id": self.work_package.openproject_id}},
+        }
