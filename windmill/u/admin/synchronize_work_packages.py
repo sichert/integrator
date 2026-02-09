@@ -2,7 +2,9 @@ import requests
 import wmill
 
 
-def process_hook(action: str, work_package: dict, work_packages_url: str, headers: dict) -> str:
+def process_hook(
+    action: str, work_package: dict, work_packages_url: str, headers: dict
+) -> str:
     """
     Processes a webhook action for updating or creating work packages.
 
@@ -31,7 +33,7 @@ def process_hook(action: str, work_package: dict, work_packages_url: str, header
     if "_embedded" in work_package:
         project_id = wmill.run_script(
             "u/admin/get_project",
-            args={"project_id": work_package["_embedded"]["project"]["id"]}
+            args={"project_id": work_package["_embedded"]["project"]["id"]},
         )
         work_package["project"] = project_id
 
@@ -40,16 +42,16 @@ def process_hook(action: str, work_package: dict, work_packages_url: str, header
 
     if action == "work_package:updated":
         result = requests.patch(
-            f'{work_packages_url}{work_package["openproject_id"]}/', json=work_package, headers=headers
+            f"{work_packages_url}{work_package['openproject_id']}/",
+            json=work_package,
+            headers=headers,
         )
     else:
         result = requests.post(work_packages_url, json=work_package, headers=headers)
     return result.json()["id"]
 
 
-def main(
-        action: str = "", work_package: dict = {}, existing_work_packages: list = []
-):
+def main(action: str = "", work_package: dict = {}, existing_work_packages: list = []):
     """
     Main function for handling work package operations.
 
