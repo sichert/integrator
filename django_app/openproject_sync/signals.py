@@ -130,7 +130,6 @@ def synchronize_work_package_to_openproject(sender, instance, created, **kwargs)
                     "Content-Type": "application/json",
                 },
             )
-        print("r.status_code", r.status_code, r.text, r.json())
         response = r.json()
         WorkPackage.objects.filter(id=instance.id).update(
             openproject_id=response["id"],
