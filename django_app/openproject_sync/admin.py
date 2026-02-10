@@ -13,6 +13,17 @@ class WorkPackageAdmin(admin.ModelAdmin):
     list_display = ("subject", "project")
     list_filter = ("project",)
 
+    def get_readonly_fields(self, request, obj=None):
+        return (
+            "createdAt",
+            "updatedAt",
+            "derivedStartDate",
+            "derivedDueDate",
+            "derivedPercentageDone",
+            "derivedEstimatedTime",
+            "derivedRemainingTime",
+        )
+
     def has_add_permission(self, request, obj=None):
         return False
 
