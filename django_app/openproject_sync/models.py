@@ -148,12 +148,6 @@ class TimeEntry(OpenProjectModelMixin, models.Model):
             "ongoing": str(self.ongoing),
             "spentOn": str(self.spentOn),
             "hours": self.hours,
-            "createdAt": (
-                self.createdAt.strftime("%Y-%m-%d %H:%M:%S") if self.createdAt else None
-            ),
-            "updatedAt": (
-                self.updatedAt.strftime("%Y-%m-%d %H:%M:%S") if self.updatedAt else None
-            ),
-            "comment": {"raw": self.description},
+            "comment": {"raw": self.comment},
             "_embedded": {"workPackage": {"id": self.work_package.openproject_id}},
         }
